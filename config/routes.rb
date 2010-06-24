@@ -1,4 +1,8 @@
 Missionaries::Application.routes.draw do |map|
+  resources :missionaries
+
+  resources :missions
+
   get "pages/home"
 
   root :to => 'pages#home'

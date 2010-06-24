@@ -1,0 +1,15 @@
+body {
+  font-family: 'helvetica';
+  font-size: 12px; }
+
+th {
+  text-align: left; }
+
+tr td {
+  vertical-align: top; }
+  tr td p {
+    margin: 0px; }
+
+table tr th, table tr td {
+  height: 30px;
+  padding: 3px; }

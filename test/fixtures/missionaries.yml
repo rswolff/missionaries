@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  courtesy_title: MyString
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  mission_id: 1
+  state: MyString
+  mtc_date: 2010-06-21
+  language: MyString
+
+two:
+  courtesy_title: MyString
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  mission_id: 1
+  state: MyString
+  mtc_date: 2010-06-21
+  language: MyString

@@ -1,0 +1,21 @@
+%h1 Listing missions
+
+%table
+  %tr
+    %th Name
+    %th Address
+    %th
+    %th
+    %th
+
+  - @missions.each do |mission|
+    %tr
+      %td= mission.name
+      %td= sanitize RedCloth.new(mission.address).to_html
+      %td= link_to 'Show', mission
+      %td= link_to 'Edit', edit_mission_path(mission)
+      %td= link_to 'Destroy', mission, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New mission', new_mission_path

@@ -1,0 +1,28 @@
+%p
+  %b Courtesy title:
+  = @missionary.courtesy_title
+%p
+  %b First name:
+  = @missionary.first_name
+%p
+  %b Last name:
+  = @missionary.last_name
+%p
+  %b Email:
+  = @missionary.email
+%p
+  %b Mission:
+  = @missionary.mission_id
+%p
+  %b State:
+  = @missionary.state
+%p
+  %b Mtc date:
+  = @missionary.mtc_date
+%p
+  %b Language:
+  = @missionary.language
+
+= link_to 'Edit', edit_missionary_path(@missionary)
+\|
+= link_to 'Back', missionaries_path

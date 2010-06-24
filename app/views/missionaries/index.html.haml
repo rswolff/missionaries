@@ -1,0 +1,23 @@
+%h1 Missionaries
+
+%table
+  %tr
+    %th Courtesy title
+    %th Name
+    %th Email
+    %th Mission
+    %th Mtc date
+    %th Language
+
+  - @missionaries.each do |missionary|
+    %tr
+      %td= missionary.courtesy_title
+      %td= missionary.full_name
+      %td= mail_to missionary.email
+      %td= link_to missionary.mission.name, mission_path(missionary.mission)
+      %td= missionary.mtc_date
+      %td= missionary.language
+
+%br
+
+= link_to 'New missionary', new_missionary_path

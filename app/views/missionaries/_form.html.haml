@@ -1,0 +1,43 @@
+= form_for @missionary do |f|
+  -if @missionary.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@missionary.errors.count, "error")} prohibited this missionary from being saved:"
+      %ul
+        - @missionary.errors.full_messages.each do |msg|
+          %li= msg
+
+  .span-4
+    = f.label :courtesy_title 
+  .span-20.last
+    = f.select :courtesy_title, ["Elder", "Sister"]
+  .span-4  
+    = f.label :first_name
+  .span-20.last
+    = f.text_field :first_name
+  .span-4  
+    = f.label :last_name
+  .span-20.last
+    = f.text_field :last_name
+  .span-4  
+    = f.label :email
+  .span-20.last
+    = f.text_field :email
+  .span-4  
+    = f.label :mission_id
+  .span-20.last
+    = f.collection_select :mission_id, Mission.all(:order => "name"), :id, :name, {:prompt => "Select a mission"}
+    = link_to "add mission", new_mission_path, :id => "new_mission"
+  .span-4  
+    = f.label :mtc_date
+  .span-20.last
+    = f.date_select :mtc_date
+  .span-4  
+    = f.label :language
+  .span-20.last
+    = f.text_field :language
+  .span-4  
+    = f.label :length_of_service_in_months, "LOS (months)"
+  .span-20.last
+    = f.text_field :length_of_service_in_months, :value => 24
+  
+    = f.submit 'Save'

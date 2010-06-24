@@ -1,0 +1,10 @@
+%p
+  %b Name:
+  = @mission.name
+%p
+  %b Address:
+  = sanitize(RedCloth.new(@mission.address).to_html)
+
+= link_to 'Edit', edit_mission_path(@mission)
+\|
+= link_to 'Back', missions_path

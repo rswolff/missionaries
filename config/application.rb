@@ -12,7 +12,7 @@ module Missionaries
     g.template_engine :haml
   end
 
-    Sass::Plugin.options[:style] = :expanded
+    Sass::Plugin.options[:style] = :compact
   Sass::Plugin.options[:template_location] = 'app/stylesheets'
 
     # Settings in config/environments/* take precedence over those specified here.
