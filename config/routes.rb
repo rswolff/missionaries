@@ -1,4 +1,6 @@
 Missionaries::Application.routes.draw do |map|
+  resources :units
+
   resources :missionaries
 
   resources :missions

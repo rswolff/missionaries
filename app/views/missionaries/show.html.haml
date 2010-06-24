@@ -12,7 +12,7 @@
   = mail_to @missionary.email
 %p
   %b Mission:
-  = link_to @missionary.mission.name, mission_path(@missionary.mission.name)
+  = link_to @missionary.mission.name, mission_path(@missionary.mission.name) if @missionary.mission
 %p
   %b State:
   = @missionary.state

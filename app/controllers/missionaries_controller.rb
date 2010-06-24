@@ -2,8 +2,10 @@ class MissionariesController < ApplicationController
   # GET /missionaries
   # GET /missionaries.xml
   def index
-    @missionaries = Missionary.all
-
+    @awaiting_call = Missionary.awaiting_call
+    @serving = Missionary.serving
+    @call_received = Missionary.call_received
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @missionaries }

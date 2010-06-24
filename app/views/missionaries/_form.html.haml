@@ -22,6 +22,10 @@
     = f.label :email
   .span-20.last
     = f.text_field :email
+  .span-4
+    = f.label :unit_id, "Unit"
+  .span-20.last
+    = f.collection_select :unit_id, Unit.order("name"), :id, :name, {:prompt => "Select a unit"}
   .span-4  
     = f.label :mission_id
   .span-20.last
@@ -39,5 +43,10 @@
     = f.label :length_of_service_in_months, "LOS (months)"
   .span-20.last
     = f.text_field :length_of_service_in_months, :value => 24
-  
-    = f.submit 'Save'
+  .span-4
+    = f.label :state, "Status"
+  .span-20.last
+    = f.select :state, [["Awaiting Call", "awaiting_call"], ["Call Received", "call_received"], ["Serving", "serving"]]
+
+
+  = f.submit 'Save'

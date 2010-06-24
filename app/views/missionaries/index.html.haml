@@ -1,21 +1,70 @@
 %h1 Missionaries
 
-%table
-  %tr
-    %th Name
-    %th Email
-    %th Mission
-    %th Mtc date
-    %th Language
-
-  - @missionaries.each do |missionary|
-    %tr
-      %td= link_to missionary.full_name_with_courtesy_title, missionary_path(missionary)
-      %td= mail_to missionary.email
-      %td= link_to missionary.mission.name, mission_path(missionary.mission)
-      %td= missionary.mtc_date
-      %td= missionary.language
+#new_missionary_link
+  = link_to 'New missionary', new_missionary_path
 
 %br
 
-= link_to 'New missionary', new_missionary_path
+%h2 Awaiting Call
+%table
+  %tr
+    %th{:style => "width:20%;"} Name
+    %th{:style => "width:15%;"} Unit
+    %th{:style => "width:30%;"} Mission/Language
+    %th{:style => "width:25%;"} Email
+    %th{:style => "width:10%;"} change
+
+  - @awaiting_call.each do |missionary|
+    %tr
+      %td= link_to missionary.full_name, missionary_path(missionary)
+      %td= link_to missionary.unit.name, unit_path(missionary.unit)
+      %td N/A      
+      %td= mail_to missionary.email
+      %td= events(missionary.state)
+
+%br
+
+
+%h2 Call Received
+%table
+  %tr
+    %th{:style => "width:23%;"} Name
+    %th{:style => "width:17%;"} Unit
+    %th{:style => "width:34%;"} Mission/Language
+    %th{:style => "width:12%;"} MTC Date
+    %th{:style => "width:14%;"} change
+
+  - @call_received.each do |missionary|
+    %tr
+      %td= link_to missionary.full_name, missionary_path(missionary)
+      %td= link_to missionary.unit.name, unit_path(missionary.unit)
+      %td
+        %strong        
+          = link_to missionary.mission.name, mission_path(missionary.mission)
+        = "(#{missionary.language})"
+      %td= missionary.mtc_date.to_s(:med) 
+      %td= events(missionary.state)
+
+%br
+
+%h2 Serving
+%table
+  %tr
+    %th{:style => "width:23%;"} Name
+    %th{:style => "width:17%;"} Unit
+    %th{:style => "width:34%;"} Mission/Language
+    %th{:style => "width:12%;"} Release Date
+    %th{:style => "width:14%;"} change
+
+  - @serving.each do |missionary|
+    %tr
+      %td= link_to missionary.full_name_with_courtesy_title, missionary_path(missionary)
+      %td= link_to missionary.unit.name, unit_path(missionary.unit)
+      %td
+        %strong
+          = link_to missionary.mission.name, mission_path(missionary.mission)
+        = "(#{missionary.language})"
+        %br
+      %td= missionary.anticipated_release_date.to_s(:med)
+      %td= events(missionary.state)
+%br
