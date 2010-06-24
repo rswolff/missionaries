@@ -55,9 +55,19 @@ $(function(){
 	});
 	
 	$("select#missionary_mission_id").change(function(){
+		//get the mission address
 		$.getJSON("/missions/" + $(this).val(), function(data){
-			console.log(data.mission.name)
-			$("#mission_address").html(data.mission.address)
+			console.log(data.mission.name);
+			$("#mission_address").html(data.mission.address);
 		})
+		
+		console.log("the value of missionary_mission_id: " + $("select#missionary_mission_id").val());
+		
+		//toggle form controls
+		if ($("select#missionary_mission_id").val() == " "){
+		  $(".toggle").attr("disabled", "disabled"); 	
+		} else {
+		  $(".toggle").removeAttr("disabled");	
+		}
 	})
 });

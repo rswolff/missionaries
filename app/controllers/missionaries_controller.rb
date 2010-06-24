@@ -36,7 +36,7 @@ class MissionariesController < ApplicationController
 
   # GET /missionaries/1/edit
   def edit
-    @missionary = Missionary.find(params[:id])
+    @missionary = Missionary.find(params[:id])  
   end
 
   # POST /missionaries

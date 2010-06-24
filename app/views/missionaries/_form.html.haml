@@ -36,23 +36,23 @@
     .span-4  
       = f.label :mtc_date
     .span-8.last
-      = f.date_select :mtc_date, :disabled => true
+      = f.date_select :mtc_date, {:disabled => disabled?, :prompt => {:day => "Day", :month => "Month", :year => "Year"}}, {:class => "toggle"}
     .span-4  
       = f.label :language
     .span-8.last
-      = f.text_field :language, :disabled => true
+      = f.text_field :language, :disabled => disabled?, :class => "toggle"
     .span-4  
       = f.label :length_of_service_in_months, "LOS (months)"
     .span-8.last
-      = f.text_field :length_of_service_in_months, :value => 24, :disabled => true
+      = f.text_field :length_of_service_in_months, :value => 24, :disabled => disabled?, :class => "toggle"
     .span-4  
       = f.label :set_apart_date, "Date Set Apart"
     .span-8.last
-      = f.date_select :set_apart_date, :disabled => true 
+      = f.date_select :set_apart_date, {:disabled => disabled?, :prompt => {:day => "Day", :month => "Month", :year => "Year"}}, {:class => "toggle"} 
     .span-4  
       = f.label :set_apart_by_id, "Set Apart By"
     .span-8.last
-      = f.collection_select :set_apart_by_id, Person.order("last_name, first_name"), :id, :full_name_with_courtesy_title, {}, {:disabled => true}
+      = f.collection_select :set_apart_by_id, Person.order("last_name, first_name"), :id, :full_name_with_courtesy_title, {}, {:disabled => disabled?, :class => "toggle"}
   .span-12.last
     #mission_address
       = raw(RedCloth.new(@missionary.mission.address).to_html) if params[:action] == 'edit' && @missionary.mission
@@ -60,7 +60,7 @@
   .span-4  
     = f.label :release_date, "Date Released"
   .span-20.last
-    = f.date_select :release_date, :disabled => true
+    = f.date_select :release_date, {:disabled => disabled?, :prompt => {:day => "Day", :month => "Month", :year => "Year"}}, {:class => "toggle"}
   %hr
   .span-4
     = f.label :state, "Status"

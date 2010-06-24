@@ -7,4 +7,9 @@ module MissionariesHelper
       link_to "release" #, release_missionary_path
     end
   end
+  
+  def disabled?
+    @missionary.mission ? false : true
+  end
+  
 end
