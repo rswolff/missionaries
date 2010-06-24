@@ -26,27 +26,46 @@
     = f.label :unit_id, "Unit"
   .span-20.last
     = f.collection_select :unit_id, Unit.order("name"), :id, :name, {:prompt => "Select a unit"}
+  %hr  
+  .span-12
+    .span-4  
+      = f.label :mission_id
+    .span-8.last
+      = f.collection_select :mission_id, Mission.all(:order => "name"), :id, :name, {:prompt => "Select a mission"}
+      = link_to "add mission", new_mission_path, :id => "new_mission"
+    .span-4  
+      = f.label :mtc_date
+    .span-8.last
+      = f.date_select :mtc_date, :disabled => true
+    .span-4  
+      = f.label :language
+    .span-8.last
+      = f.text_field :language, :disabled => true
+    .span-4  
+      = f.label :length_of_service_in_months, "LOS (months)"
+    .span-8.last
+      = f.text_field :length_of_service_in_months, :value => 24, :disabled => true
+    .span-4  
+      = f.label :set_apart_date, "Date Set Apart"
+    .span-8.last
+      = f.date_select :set_apart_date, :disabled => true 
+    .span-4  
+      = f.label :set_apart_by_id, "Set Apart By"
+    .span-8.last
+      = f.collection_select :set_apart_by_id, Person.order("last_name, first_name"), :id, :full_name_with_courtesy_title, {}, {:disabled => true}
+  .span-12.last
+    #mission_address
+      = raw(RedCloth.new(@missionary.mission.address).to_html) if params[:action] == 'edit' && @missionary.mission
+  %hr
   .span-4  
-    = f.label :mission_id
+    = f.label :release_date, "Date Released"
   .span-20.last
-    = f.collection_select :mission_id, Mission.all(:order => "name"), :id, :name, {:prompt => "Select a mission"}
-    = link_to "add mission", new_mission_path, :id => "new_mission"
-  .span-4  
-    = f.label :mtc_date
-  .span-20.last
-    = f.date_select :mtc_date
-  .span-4  
-    = f.label :language
-  .span-20.last
-    = f.text_field :language
-  .span-4  
-    = f.label :length_of_service_in_months, "LOS (months)"
-  .span-20.last
-    = f.text_field :length_of_service_in_months, :value => 24
+    = f.date_select :release_date, :disabled => true
+  %hr
   .span-4
     = f.label :state, "Status"
   .span-20.last
-    = f.select :state, [["Awaiting Call", "awaiting_call"], ["Call Received", "call_received"], ["Serving", "serving"]]
-
+    = f.select :state, [["Awaiting Call", "awaiting_call"], ["Call Received", "call_received"], ["Serving", "serving"], ["Returned", "returned"]]
+  %hr
 
   = f.submit 'Save'

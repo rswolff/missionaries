@@ -1,46 +1,51 @@
 function parse_option_string(value, text, selected){
-	
-	console.log(selected);
-	
 	option = "";
 	if (selected == 'true'){
 		option = "<option value='" + value + "' selected='selected'>" + text + "</option>";
 	} else {
 		option = "<option value='" + value + "'>" + text + "</option>";		
 	}
-	
-	console.log("The options are: " + option);
-	
 	return option;
 }
 
-function set_options(responseText, statusText, xhr, $form){
+function create_mission_id_select_options(responseText){
 	
+	console.log("creating_mission_id_select_options");
 	
-	console.log("in set_options");
 	options_text = "";
 	
 	for(i = 0; i < responseText.length; i++){
-		console.log("The value of selected is: " + responseText[i]["selected"]);
 		options_text = options_text + parse_option_string(responseText[i]["id"], responseText[i]["name"], responseText[i]["selected"]);
 	}
 	
-	console.log(options_text);
-	$('body').data('new_mission', true);
-	$('body').data('options', options_text);
-
+	console.log("options created as: " + options_text);
+	
+	return options_text;
 }
 
-function setOptions(){	
-	$('select#missionary_mission_id').html($('body').data('options'));	
+function set_mission_id_select_and_close(responseText, statusText, xhr, $form){
+	
+	console.log("setting mission_id_select with responseText: " + responseText);
+	
+	options_text = create_mission_id_select_options(responseText);
+	
+	console.log("the options_text is: " + options_text);
+		
+	$('select#missionary_mission_id').html(options_text);
+	
+	console.log("attempting to close colorbox");
+	
+	$.fn.colorbox.close();
+	$.fn.colorbox.remove();	
 }
 
-$(function(){	
+$(function(){
+	//ajaxSubmit form	
 	$("a#new_mission").colorbox({
-		'onComplete': function(){ $("form#new_mission").ajaxForm({dataType: 'json', 'success':  set_options });},
-		'onClosed'  : setOptions
+		'onComplete': function(){ $("form#new_mission").ajaxForm({dataType: 'json', 'success':  set_mission_id_select_and_close });}
 	});
 	
+	//set anticipated LOS
 	$("#missionary_courtesy_title").change(function(){
 		if ($(this).val() == "Elder") {
 			$("#missionary_length_of_service_in_months").val("24");
@@ -48,4 +53,11 @@ $(function(){
 			$("#missionary_length_of_service_in_months").val("18");
 		}	
 	});
+	
+	$("select#missionary_mission_id").change(function(){
+		$.getJSON("/missions/" + $(this).val(), function(data){
+			console.log(data.mission.name)
+			$("#mission_address").html(data.mission.address)
+		})
+	})
 });

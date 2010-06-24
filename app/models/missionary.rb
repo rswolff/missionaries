@@ -1,13 +1,15 @@
 class Missionary < ActiveRecord::Base
   belongs_to :mission
   belongs_to :unit
+  belongs_to :set_apart_by, :class_name => "Person" 
   
-  validates_presence_of :courtesy_title, :first_name, :last_name
+  validates_presence_of :courtesy_title, :first_name, :last_name, :unit_id
   
   scope :awaiting_call, lambda {where("state = 'awaiting_call'").order("last_name, first_name").includes(:unit)}
   scope :call_received, lambda {where("state = 'call_received'").order("mtc_date").includes([:mission, :unit])}
   scope :serving,       lambda {where("state = 'serving'").order("anticipated_release_date").includes([:mission, :unit])}
   scope :active,        lambda {where}
+  scope :returned,      lambda {where("state = 'returned'").order("")}
   
   def full_name
     first_name + " " + last_name
@@ -28,7 +30,7 @@ class Missionary < ActiveRecord::Base
     end
     
     event :release do 
-      transition :serving => :released
+      transition :serving => :returned
     end
     
     event :hold do

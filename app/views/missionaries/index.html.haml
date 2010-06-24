@@ -8,18 +8,16 @@
 %h2 Awaiting Call
 %table
   %tr
-    %th{:style => "width:20%;"} Name
-    %th{:style => "width:15%;"} Unit
-    %th{:style => "width:30%;"} Mission/Language
-    %th{:style => "width:25%;"} Email
-    %th{:style => "width:10%;"} change
+    %th{:style => "width:23%;"} Name
+    %th{:style => "width:17%;"} Unit
+    %th{:style => "width:46%;"} Mission/Language
+    %th{:style => "width:14%;"} change
 
   - @awaiting_call.each do |missionary|
     %tr
       %td= link_to missionary.full_name, missionary_path(missionary)
       %td= link_to missionary.unit.name, unit_path(missionary.unit)
       %td N/A      
-      %td= mail_to missionary.email
       %td= events(missionary.state)
 
 %br

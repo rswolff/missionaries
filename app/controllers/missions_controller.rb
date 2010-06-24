@@ -17,7 +17,10 @@ class MissionsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @mission }
+      format.js {
+        @mission.address = RedCloth.new(@mission.address).to_html
+        render :json => @mission
+      }
     end
   end
 
