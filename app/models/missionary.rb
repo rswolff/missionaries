@@ -7,6 +7,10 @@ class Missionary < ActiveRecord::Base
     first_name + " " + last_name
   end
   
+  def full_name_with_courtesy_title
+    courtesy_title + " " + full_name
+  end
+  
   state_machine :state, :initial => :awaiting_call do
     
     event :set_apart do

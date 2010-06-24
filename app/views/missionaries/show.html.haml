@@ -9,10 +9,10 @@
   = @missionary.last_name
 %p
   %b Email:
-  = @missionary.email
+  = mail_to @missionary.email
 %p
   %b Mission:
-  = @missionary.mission_id
+  = link_to @missionary.mission.name, mission_path(@missionary.mission.name)
 %p
   %b State:
   = @missionary.state

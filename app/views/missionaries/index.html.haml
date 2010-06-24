@@ -2,7 +2,6 @@
 
 %table
   %tr
-    %th Courtesy title
     %th Name
     %th Email
     %th Mission
@@ -11,8 +10,7 @@
 
   - @missionaries.each do |missionary|
     %tr
-      %td= missionary.courtesy_title
-      %td= missionary.full_name
+      %td= link_to missionary.full_name_with_courtesy_title, missionary_path(missionary)
       %td= mail_to missionary.email
       %td= link_to missionary.mission.name, mission_path(missionary.mission)
       %td= missionary.mtc_date
