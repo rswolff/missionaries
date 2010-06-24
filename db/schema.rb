@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100624162301) do
+ActiveRecord::Schema.define(:version => 20100624203149) do
 
   create_table "missionaries", :force => true do |t|
     t.string   "courtesy_title"
@@ -25,11 +25,22 @@ ActiveRecord::Schema.define(:version => 20100624162301) do
     t.integer  "length_of_service_in_months"
     t.date     "anticipated_release_date"
     t.integer  "unit_id"
+    t.date     "release_date"
+    t.date     "set_apart_date"
+    t.integer  "set_apart_by_id"
   end
 
   create_table "missions", :force => true do |t|
     t.string   "name"
     t.text     "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "people", :force => true do |t|
+    t.string   "courtesy_title"
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
