@@ -9,6 +9,8 @@
   gem "compass"
   gem "capistrano"
   gem "mysql"
+  gem "RedCloth"
+  gem "state_machine"
 
   # Use unicorn as the web server
   # gem 'unicorn'
