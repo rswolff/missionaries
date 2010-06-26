@@ -2,9 +2,19 @@ class MissionariesController < ApplicationController
   # GET /missionaries
   # GET /missionaries.xml
   def index
-    @awaiting_call = Missionary.awaiting_call
-    @serving = Missionary.serving
-    @call_received = Missionary.call_received
+    
+    if params[:unit_id]
+      
+      unit_id = params[:unit_id]
+      
+      @awaiting_call = Missionary.in_unit(unit_id, 'awaiting_call')
+      @serving = Missionary.in_unit(unit_id, 'serving')
+      @call_received = Missionary.in_unit(unit_id, 'call_received')
+    else
+      @awaiting_call = Missionary.awaiting_call
+      @serving = Missionary.serving
+      @call_received = Missionary.call_received      
+    end
     
     respond_to do |format|
       format.html # index.html.erb

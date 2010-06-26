@@ -1,6 +1,8 @@
 Missionaries::Application.routes.draw do |map|
   resources :people
-  resources :units
+  resources :units do
+    resources :missionaries
+  end
   resources :missionaries do
     member do
       get :receive_call
