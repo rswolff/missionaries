@@ -1,0 +1,18 @@
+%h2
+  = "#{@missionary.full_name}"
+  = "(#{@missionary.unit.name})"
+= form_for @missionary do |f|
+  = f.label :mission_id
+  = f.collection_select :mission_id, Mission.all(:order => "name"), :id, :name, {:prompt => "Select a mission"}
+  = link_to "add mission", new_mission_path, :id => "new_mission"
+  %br
+  = f.label :mtc_date
+  = f.date_select :mtc_date, {:disabled => disabled?, :prompt => {:day => "Day", :month => "Month", :year => "Year"}}, {:class => "toggle"}
+  %br
+  = f.label :language
+  = f.text_field :language, :disabled => disabled?, :class => "toggle"
+  %br
+  = f.label :length_of_service_in_months, "LOS (months)"
+  = f.text_field :length_of_service_in_months, :value => missionary_length_of_service(@missionary.courtesy_title), :disabled => disabled?, :class => "toggle"
+  %br
+  = f.submit "Receive Call"

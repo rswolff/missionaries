@@ -1,0 +1,28 @@
+%h2 Returned
+%table
+  %tr
+    %th{:style => "width:30%;"} Name
+    %th{:style => "width:37%;"} Mission/Language
+    %th{:style => "width:16%;"} Release Date
+    %th{:style => "width:17%;"} change
+
+  - @missionaries.each do |missionary|
+    %tr
+      %td 
+        %strong
+          = link_to missionary.full_name_with_courtesy_title, missionary_path(missionary)
+        %br
+        = link_to missionary.unit.name, unit_path(missionary.unit)
+      %td
+        %strong
+          = link_to missionary.mission.name, mission_path(missionary.mission)
+        %br
+        = "(#{missionary.language})"
+        %br
+      %td
+        %strong
+          = missionary.anticipated_release_date.to_s(:med)
+        %br
+        = distance_of_time_in_words(missionary.release_date, Date.today) if missionary.release_date
+      %td= events(missionary.state)
+%br

@@ -54,6 +54,7 @@ $(function(){
 		}	
 	});
 	
+	//get mission address
 	$("select#missionary_mission_id").change(function(){
 		//get the mission address
 		$.getJSON("/missions/" + $(this).val(), function(data){

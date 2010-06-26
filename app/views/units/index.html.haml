@@ -3,17 +3,19 @@
 %table
   %tr
     %th Name
-    %th
-    %th
-    %th
+    %th Awaiting Call
+    %th Call Received
+    %th Serving
+    %th Returned
 
   - @units.each do |unit|
     %tr
-      %td= unit.name
-      %td= link_to 'Show', unit
-      %td= link_to 'Edit', edit_unit_path(unit)
-      %td= link_to 'Destroy', unit, :confirm => 'Are you sure?', :method => :delete
-
+      %td
+        = link_to unit.name, unit
+      %td= Missionary.count(:conditions => ["unit_id = ? AND state = ?", unit.id, 'awaiting_call'])
+      %td= Missionary.count(:conditions => ["unit_id = ? AND state = ?", unit.id, 'call_received'])
+      %td= Missionary.count(:conditions => ["unit_id = ? AND state = ?", unit.id, 'serving'])
+      %td= Missionary.count(:conditions => ["unit_id = ? AND state = ?", unit.id, 'returned'])            
 %br
 
 = link_to 'New unit', new_unit_path

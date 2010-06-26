@@ -5,64 +5,83 @@
 
 %br
 
-%h2 Awaiting Call
+%h2
+  Awaiting Call
+  = "(#{@awaiting_call.length})"
 %table
   %tr
-    %th{:style => "width:23%;"} Name
-    %th{:style => "width:17%;"} Unit
-    %th{:style => "width:46%;"} Mission/Language
-    %th{:style => "width:14%;"} change
+    %th{:style => "width:30%;"} Name
+    %th{:style => "width:53%;"} Mission/Language
+    %th{:style => "width:17%;"} Update Status
 
   - @awaiting_call.each do |missionary|
     %tr
-      %td= link_to missionary.full_name, missionary_path(missionary)
-      %td= link_to missionary.unit.name, unit_path(missionary.unit)
-      %td N/A      
-      %td= events(missionary.state)
-
+      %td
+        %strong
+          = link_to missionary.full_name, missionary_path(missionary)
+        %br
+        = link_to missionary.unit.name, unit_path(missionary.unit)
+      %td Waiting for assignment      
+      %td
+        = render :partial => "missionary_events", :object => missionary
 %br
 
 
-%h2 Call Received
+%h2
+  Call Received
+  = "(#{@call_received.length})"
 %table
   %tr
-    %th{:style => "width:23%;"} Name
-    %th{:style => "width:17%;"} Unit
-    %th{:style => "width:34%;"} Mission/Language
-    %th{:style => "width:12%;"} MTC Date
-    %th{:style => "width:14%;"} change
+    %th{:style => "width:30%;"} Name
+    %th{:style => "width:37%;"} Mission/Language
+    %th{:style => "width:16%;"} MTC Date
+    %th{:style => "width:17%;"} Update Status
 
   - @call_received.each do |missionary|
     %tr
-      %td= link_to missionary.full_name, missionary_path(missionary)
-      %td= link_to missionary.unit.name, unit_path(missionary.unit)
+      %td
+        %strong
+          = link_to missionary.full_name, missionary_path(missionary)
+        %br 
+        = link_to missionary.unit.name, unit_path(missionary.unit)
       %td
         %strong        
           = link_to missionary.mission.name, mission_path(missionary.mission)
+        %br
         = "(#{missionary.language})"
-      %td= missionary.mtc_date.to_s(:med) 
-      %td= events(missionary.state)
-
+      %td= missionary.mtc_date.to_s(:med)
+      %td
+        = render :partial => "missionary_events", :object => missionary
 %br
 
-%h2 Serving
+%h2 
+  Serving
+  = "(#{@serving.length})"
 %table
   %tr
-    %th{:style => "width:23%;"} Name
-    %th{:style => "width:17%;"} Unit
-    %th{:style => "width:34%;"} Mission/Language
-    %th{:style => "width:12%;"} Release Date
-    %th{:style => "width:14%;"} change
+    %th{:style => "width:30%;"} Name
+    %th{:style => "width:37%;"} Mission/Language
+    %th{:style => "width:16%;"} Release Date
+    %th{:style => "width:17%;"} Update Status
 
   - @serving.each do |missionary|
     %tr
-      %td= link_to missionary.full_name_with_courtesy_title, missionary_path(missionary)
-      %td= link_to missionary.unit.name, unit_path(missionary.unit)
+      %td 
+        %strong
+          = link_to missionary.full_name_with_courtesy_title, missionary_path(missionary)
+        %br
+        = link_to missionary.unit.name, unit_path(missionary.unit)
       %td
         %strong
           = link_to missionary.mission.name, mission_path(missionary.mission)
+        %br
         = "(#{missionary.language})"
         %br
-      %td= missionary.anticipated_release_date.to_s(:med)
-      %td= events(missionary.state)
+      %td
+        %strong
+          = missionary.anticipated_release_date.to_s(:med)
+        %br
+        = distance_of_time_in_words(missionary.anticipated_release_date, Date.today)
+      %td
+        = render :partial => "missionary_events", :object => missionary      
 %br

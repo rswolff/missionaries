@@ -14,6 +14,7 @@ class UnitsController < ApplicationController
   # GET /units/1.xml
   def show
     @unit = Unit.find(params[:id])
+    @serving = Missionary.in_unit(@unit.id, "serving")
 
     respond_to do |format|
       format.html # show.html.erb

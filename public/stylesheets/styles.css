@@ -1,6 +1,6 @@
 body {
   font-family: 'helvetica';
-  font-size: 12px; }
+  font-size: 14px; }
 
 th {
   text-align: left; }
@@ -11,5 +11,6 @@ tr td {
     margin: 0px; }
 
 table tr th, table tr td {
+  border-top: 1px solid #ccc;
   height: 30px;
-  padding: 3px; }
+  padding: 7px 3px; }

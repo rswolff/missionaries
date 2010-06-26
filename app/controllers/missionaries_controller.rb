@@ -82,4 +82,13 @@ class MissionariesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def returned
+    @missionaries = Missionary.returned
+  end
+  
+  def receive_call
+    @missionary = Missionary.find(params[:id])
+  end
+
 end

@@ -1,14 +1,22 @@
 Missionaries::Application.routes.draw do |map|
   resources :people
-
   resources :units
-
-  resources :missionaries
-
+  resources :missionaries do
+    member do
+      get :receive_call
+      post :receive_call, {:action => "bob"}
+      get :set_apart
+      get :return
+    end
+    collection do
+      get :returned
+    end
+  end
+  
   resources :missions
-
+  
   get "pages/home"
-
+  
   root :to => 'pages#home'
 
   # The priority is based upon order of creation:

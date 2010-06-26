@@ -12,4 +12,13 @@ module MissionariesHelper
     @missionary.mission ? false : true
   end
   
+  def missionary_length_of_service(courtesy_title)
+    case courtesy_title
+    when "Elder" || "elder"
+      "24"
+    when "Sister" || "sister"
+      "18"
+    end
+  end
+  
 end

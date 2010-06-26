@@ -9,15 +9,8 @@ class Missionary < ActiveRecord::Base
   scope :call_received, lambda {where("state = 'call_received'").order("mtc_date").includes([:mission, :unit])}
   scope :serving,       lambda {where("state = 'serving'").order("anticipated_release_date").includes([:mission, :unit])}
   scope :active,        lambda {where}
-  scope :returned,      lambda {where("state = 'returned'").order("")}
-  
-  def full_name
-    first_name + " " + last_name
-  end
-  
-  def full_name_with_courtesy_title
-    courtesy_title + " " + full_name
-  end
+  scope :returned,      lambda {where("state = 'returned'").order("anticipated_release_date DESC")}
+  scope :in_unit,       lambda {|unit_id, state| where(["missionaries.state = ? AND units.id = ?", state, unit_id]).joins(:unit)}  
   
   state_machine :state, :initial => :awaiting_call do
     
@@ -41,4 +34,21 @@ class Missionary < ActiveRecord::Base
       transition :hold => :serving
     end
   end
+  
+  def full_name
+    first_name + " " + last_name
+  end
+  
+  def full_name_with_courtesy_title
+    courtesy_title + " " + full_name
+  end
+  
+  def length_of_service
+    if mtc_date && serving?
+      (Date.today - mtc_date).to_i
+    else
+      "N/A"
+    end
+  end
+  
 end

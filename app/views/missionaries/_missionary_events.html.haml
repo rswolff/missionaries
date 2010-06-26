@@ -1,0 +1,7 @@
+- case missionary_events.state
+- when "awaiting_call"
+  = link_to "receive call", receive_call_missionary_path(missionary_events)
+- when "call_received"
+  = link_to "set apart", nil
+- when "serving"
+  = link_to "release", nil

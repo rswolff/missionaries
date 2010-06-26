@@ -1,6 +1,27 @@
-%p
-  %b Name:
-  = @unit.name
+%h2= @unit.name
+
+%h2
+  Serving
+
+%table
+  %tr
+    %th{:style => "width:30%;"} Name
+    %th{:style => "width:37%;"} Mission/Language
+    %th{:style => "width:16%;"} MTC Date
+    %th{:style => "width:17%;"} Update Status
+
+  - @serving.each do |missionary|
+    %tr
+      %td
+        %strong= link_to missionary.full_name, missionary_path(missionary)
+      %td
+        %strong        
+          = link_to missionary.mission.name, mission_path(missionary.mission)
+        %br
+        = "(#{missionary.language})"
+      %td= missionary.mtc_date.to_s(:med)
+      %td
+        = render :partial => "missionaries/missionary_events", :object => missionary       
 
 = link_to 'Edit', edit_unit_path(@unit)
 \|
