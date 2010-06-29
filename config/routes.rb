@@ -1,4 +1,6 @@
 Missionaries::Application.routes.draw do |map|
+  resources :countries
+
   match 'missionary/languages' => 'missionaries#languages'
   
   resources :people
@@ -21,7 +23,7 @@ Missionaries::Application.routes.draw do |map|
   
   get "pages/home"
   
-  root :to => 'pages#home'
+  root :to => 'missionaries#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
