@@ -58,7 +58,7 @@ class Missionary < ActiveRecord::Base
   
   def self.languages
       missionaries = Arel::Table.new(:missionaries)
-      missionaries.group(missionaries[:language]).order(missionaries[:language]).project(missionaries[:language], missionaries[:id].count).order("count_id DESC").collect {|row| row.tuple}
+      missionaries.where('language IS NOT NULL').group(missionaries[:language]).order(missionaries[:language]).project(missionaries[:language], missionaries[:id].count).order("count_id DESC").collect {|row| row.tuple}
   end
 
 end
