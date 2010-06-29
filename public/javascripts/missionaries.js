@@ -1,7 +1,7 @@
 function getMissionAddress(mission_id){
 	console.log("getting mission_id: " + mission_id)
 	$.getJSON("/missions/" + mission_id, function(data){
-		$("#mission_address").html(data.mission.address);
+		$("#mission_address").html(data.address);
 	});	
 }
 
