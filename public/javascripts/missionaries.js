@@ -1,3 +1,21 @@
+function getMissionAddress(mission_id){
+	console.log("getting mission_id: " + mission_id)
+	$.getJSON("/missions/" + mission_id, function(data){
+		$("#mission_address").html(data.mission.address);
+	});	
+}
+
+function toggleControls(){
+	//toggle form controls
+	if ($("select#missionary_mission_id").val() == " "){
+	  $(".toggle").attr("disabled", "disabled");
+	  console.log("controls enabled"); 	
+	} else {
+	  $(".toggle").removeAttr("disabled");
+	  console.log("controls enabled");
+	}
+}
+
 function parse_option_string(value, text, selected){
 	option = "";
 	if (selected == 'true'){
@@ -8,41 +26,32 @@ function parse_option_string(value, text, selected){
 	return option;
 }
 
-function create_mission_id_select_options(responseText){
-	
-	console.log("creating_mission_id_select_options");
-	
+function create_mission_id_select_options(responseText){	
 	options_text = "";
-	
 	for(i = 0; i < responseText.length; i++){
 		options_text = options_text + parse_option_string(responseText[i]["id"], responseText[i]["name"], responseText[i]["selected"]);
 	}
-	
-	console.log("options created as: " + options_text);
-	
 	return options_text;
 }
 
 function set_mission_id_select_and_close(responseText, statusText, xhr, $form){
-	
-	console.log("setting mission_id_select with responseText: " + responseText);
-	
-	options_text = create_mission_id_select_options(responseText);
-	
-	console.log("the options_text is: " + options_text);
-		
-	$('select#missionary_mission_id').html(options_text);
-	
-	console.log("attempting to close colorbox");
-	
-	$.fn.colorbox.close();
-	$.fn.colorbox.remove();	
+	options_text = create_mission_id_select_options(responseText);		
+	mission_select = $('select#missionary_mission_id');
+	mission_select.html(options_text);	
+	console.log("the mission_id.val() is: " + mission_select.val());
+	getMissionAddress(mission_select.val());	
+	toggleControls();
 }
 
 $(function(){
 	//ajaxSubmit form	
 	$("a#new_mission").colorbox({
-		'onComplete': function(){ $("form#new_mission").ajaxForm({dataType: 'json', 'success':  set_mission_id_select_and_close });}
+		'onComplete': function(){ 
+			$("form#new_mission").ajaxForm({
+				dataType: 'json', 
+				'success':  set_mission_id_select_and_close
+			});
+		}
 	});
 	
 	//set anticipated LOS
@@ -57,18 +66,8 @@ $(function(){
 	//get mission address
 	$("select#missionary_mission_id").change(function(){
 		//get the mission address
-		$.getJSON("/missions/" + $(this).val(), function(data){
-			console.log(data.mission.name);
-			$("#mission_address").html(data.mission.address);
-		})
-		
-		console.log("the value of missionary_mission_id: " + $("select#missionary_mission_id").val());
-		
-		//toggle form controls
-		if ($("select#missionary_mission_id").val() == " "){
-		  $(".toggle").attr("disabled", "disabled"); 	
-		} else {
-		  $(".toggle").removeAttr("disabled");	
-		}
-	})
+		getMissionAddress($(this).val());
+		console.log("toggling form controls.");
+		toggleControls();	
+	});
 });

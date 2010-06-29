@@ -1,4 +1,6 @@
 Missionaries::Application.routes.draw do |map|
+  match 'missionary/languages' => 'missionaries#languages'
+  
   resources :people
   resources :units do
     resources :missionaries

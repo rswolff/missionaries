@@ -1,0 +1,7 @@
+%table
+  %th Language
+  %th Count  
+  - @languages.each do |language|
+    %tr
+      %td= language[0]
+      %td= language[1]

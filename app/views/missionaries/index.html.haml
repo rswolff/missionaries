@@ -12,7 +12,7 @@
   %tr
     %th{:style => "width:30%;"} Name
     %th{:style => "width:53%;"} Mission/Language
-    %th{:style => "width:17%;"} Update Status
+    %th{:style => "width:17%;", :class => "center"} Update Status
 
   - @awaiting_call.each do |missionary|
     %tr
@@ -20,7 +20,7 @@
         %strong
           = link_to missionary.full_name, missionary_path(missionary)
         %br
-        = link_to missionary.unit.name, unit_path(missionary.unit)
+        = link_to missionary.unit.name, unit_missionaries_path(missionary.unit)
       %td Waiting for assignment      
       %td
         = render :partial => "missionary_events", :object => missionary
@@ -43,7 +43,7 @@
         %strong
           = link_to missionary.full_name, missionary_path(missionary)
         %br 
-        = link_to missionary.unit.name, unit_path(missionary.unit)
+        = link_to missionary.unit.name, unit_missionaries_path(missionary.unit)
       %td
         %strong        
           = link_to missionary.mission.name, mission_path(missionary.mission)
@@ -70,7 +70,7 @@
         %strong
           = link_to missionary.full_name_with_courtesy_title, missionary_path(missionary)
         %br
-        = link_to missionary.unit.name, unit_path(missionary.unit)
+        = link_to missionary.unit.name, unit_missionaries_path(missionary.unit)
       %td
         %strong
           = link_to missionary.mission.name, mission_path(missionary.mission)

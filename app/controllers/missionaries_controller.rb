@@ -100,5 +100,9 @@ class MissionariesController < ApplicationController
   def receive_call
     @missionary = Missionary.find(params[:id])
   end
+  
+  def languages
+    @languages = Missionary.languages
+  end
 
 end

@@ -14,3 +14,12 @@ table tr th, table tr td {
   border-top: 1px solid #ccc;
   height: 30px;
   padding: 7px 3px; }
+
+ul#nav {
+  margin: 20px 0px;
+  padding: 0px; }
+
+ul#nav li {
+  list-style-type: none;
+  display: inline;
+  padding-right: 25px; }

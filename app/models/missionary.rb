@@ -4,22 +4,23 @@ class Missionary < ActiveRecord::Base
   belongs_to :set_apart_by, :class_name => "Person" 
   
   validates_presence_of :courtesy_title, :first_name, :last_name, :unit_id
+  validates_presence_of :mtc_date, :if => :has_call?
+  
+  before_save { |missionary| missionary.anticipated_release_date = missionary.mtc_date + missionary.length_of_service_in_months.months if missionary.has_call? }
   
   scope :awaiting_call, lambda {where("state = 'awaiting_call'").order("last_name, first_name").includes(:unit)}
   scope :call_received, lambda {where("state = 'call_received'").order("mtc_date").includes([:mission, :unit])}
   scope :serving,       lambda {where("state = 'serving'").order("anticipated_release_date").includes([:mission, :unit])}
-  scope :active,        lambda {where}
   scope :returned,      lambda {where("state = 'returned'").order("anticipated_release_date DESC")}
-  scope :in_unit,       lambda {|unit_id, state| where(["missionaries.state = ? AND units.id = ?", state, unit_id]).joins(:unit)}  
-  
-  state_machine :state, :initial => :awaiting_call do
-    
+  scope :in_unit,       lambda {|unit_id, state| where(["missionaries.state = ? AND units.id = ?", state, unit_id]).joins(:unit)} 
+
+  state_machine :state, :initial => :awaiting_call do 
     event :recieve_call do
-      transition :awaiting_call => :call_recieved
+      transition :awaiting_call => :call_received
     end
     
     event :set_apart do
-      transition :call_recieved => :serving
+      transition :call_received => :serving
     end
     
     event :release do 
@@ -51,4 +52,13 @@ class Missionary < ActiveRecord::Base
     end
   end
   
+  def has_call?
+    call_received? || serving? || returned? ? true : false
+  end
+  
+  def self.languages
+      missionaries = Arel::Table.new(:missionaries)
+      missionaries.group(missionaries[:language]).order(missionaries[:language]).project(missionaries[:language], missionaries[:id].count).order("count_id DESC").collect {|row| row.tuple}
+  end
+
 end
