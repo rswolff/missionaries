@@ -4,6 +4,7 @@
   %tr
     %th Name
     %th Address
+    %th Country
     %th
     %th
     %th
@@ -11,7 +12,8 @@
   - @missions.each do |mission|
     %tr
       %td= mission.name
-      %td= sanitize RedCloth.new(mission.address).to_html
+      %td= sanitize RedCloth.new(mission.mailing_address).to_html
+      %td= mission.country.name if mission.country
       %td= link_to 'Show', mission
       %td= link_to 'Edit', edit_mission_path(mission)
       %td= link_to 'Destroy', mission, :confirm => 'Are you sure?', :method => :delete

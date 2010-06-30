@@ -12,5 +12,8 @@
   .field
     = f.label :address
     = f.text_area :address
+  .field
+    = f.label :country_id
+    = f.collection_select :country_id, Country.order("name"), :id, :name, {:prompt => true}
   .actions
     = f.submit 'Save'

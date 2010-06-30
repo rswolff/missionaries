@@ -3,7 +3,10 @@
   = @mission.name
 %p
   %b Address:
-  = sanitize(RedCloth.new(@mission.address).to_html)
+  = sanitize(RedCloth.new(@mission.mailing_address).to_html)
+%p
+  %b Country:
+  = @mission.country.name if @mission.country
 
 = link_to 'Edit', edit_mission_path(@mission)
 \|
