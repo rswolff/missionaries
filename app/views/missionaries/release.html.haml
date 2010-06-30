@@ -1,0 +1,5 @@
+= form_for @missionary do |f|
+  = f.label :release_date, "Date Released"
+  = f.date_select :release_date, {:disabled => disabled?, :prompt => {:day => "Day", :month => "Month", :year => "Year"}}, {:class => "toggle"}
+  %br
+  = f.submit "add release informaiton"

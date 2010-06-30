@@ -15,6 +15,9 @@ class Missionary < ActiveRecord::Base
   scope :in_unit,       lambda {|unit_id, state| where(["missionaries.state = ? AND units.id = ?", state, unit_id]).joins(:unit)} 
 
   state_machine :state, :initial => :awaiting_call do 
+    
+    after_transition :on => :receive_call, :do => :receive_call_notice
+    
     event :recieve_call do
       transition :awaiting_call => :call_received
     end
@@ -54,6 +57,14 @@ class Missionary < ActiveRecord::Base
   
   def has_call?
     call_received? || serving? || returned? ? true : false
+  end
+  
+  def application_sent_notice
+    MissionaryMailer.application_sent_notice(self).deliver
+  end
+  
+  def receive_call_notice
+    MissionaryMailer.call_received_notice(self).deliver
   end
   
   def self.languages

@@ -99,6 +99,29 @@ class MissionariesController < ApplicationController
   
   def receive_call
     @missionary = Missionary.find(params[:id])
+    @missionary.receive_call
+  end
+  
+  def enter_mission_call
+    @missionary = Missionary.find(params[:id])
+  end
+  
+  def set_apart
+    @missionary = Missionary.find(params[:id])
+    respond_to do |format|
+      format.html {
+        render :layout => 'modal_form'
+      }
+    end
+  end
+  
+  def release
+    @missionary = Missionary.find(params[:id])
+    respond_to do |format|
+      format.html {
+        render :layout => 'modal_form'
+      }
+    end    
   end
   
   def languages

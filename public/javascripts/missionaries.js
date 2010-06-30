@@ -54,6 +54,8 @@ $(function(){
 		}
 	});
 	
+	$("a.colorbox").colorbox();
+	
 	//set anticipated LOS
 	$("#missionary_courtesy_title").change(function(){
 		if ($(this).val() == "Elder") {

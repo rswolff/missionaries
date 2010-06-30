@@ -1,0 +1,13 @@
+%h2= @missionary.full_name
+= @missionary.unit.name
+%br
+= @missionary.mission.name
+
+= form_for @missionary do |f|
+  = f.label :set_apart_date, "Date Set Apart"
+  = f.date_select :set_apart_date, {:disabled => disabled?, :prompt => {:day => "Day", :month => "Month", :year => "Year"}}, {:class => "toggle"} 
+  %br
+  = f.label :set_apart_by_id, "Set Apart By"
+  = f.collection_select :set_apart_by_id, Person.order("last_name, first_name"), :id, :full_name_with_courtesy_title, {:prompt => "Select One"}, {:disabled => disabled?, :class => "toggle"}
+  %br
+  = f.submit "add setting apart information"

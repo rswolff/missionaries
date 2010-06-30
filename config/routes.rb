@@ -10,9 +10,9 @@ Missionaries::Application.routes.draw do |map|
   resources :missionaries do
     member do
       get :receive_call
-      post :receive_call, {:action => "bob"}
+      get :enter_mission_call
       get :set_apart
-      get :return
+      get :release
     end
     collection do
       get :returned

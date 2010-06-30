@@ -30,8 +30,10 @@ class MissionsController < ApplicationController
     @mission = Mission.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @mission }
+      format.html {
+        render :layout => 'modal_form'
+      }
+      
     end
   end
 

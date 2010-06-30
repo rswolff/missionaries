@@ -10,15 +10,17 @@
   = "(#{@awaiting_call.length})"
 %table
   %tr
-    %th{:style => "width:30%;"} Name
-    %th{:style => "width:53%;"} Mission/Language
+    %th{:style => "width:7%;"} &nbsp;
+    %th{:style => "width:25%;"} Name
+    %th{:style => "width:51%;"} Mission/Language
     %th{:style => "width:17%;", :class => "center"} Update Status
 
   - @awaiting_call.each do |missionary|
     %tr
+      %td{:class => "center"}= link_to "edit", edit_missionary_path(missionary)
       %td
         %strong
-          = link_to missionary.full_name, missionary_path(missionary)
+          = missionary.full_name
         %br
         = link_to missionary.unit.name, unit_missionaries_path(missionary.unit)
       %td Waiting for assignment      
