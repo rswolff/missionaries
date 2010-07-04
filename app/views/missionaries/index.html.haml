@@ -47,7 +47,8 @@
         %br 
         = link_to missionary.unit.name, unit_missionaries_path(missionary.unit)
       %td
-        %strong        
+        %strong
+          = image_tag('icons/map-pin.png')
           = link_to missionary.mission.name, mission_path(missionary.mission)
         %br
         = "(#{missionary.language})"
