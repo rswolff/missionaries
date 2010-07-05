@@ -1,13 +1,15 @@
 %p
-  %b Name:
-  = @mission.name
-%p
-  %b Address:
   = sanitize(RedCloth.new(@mission.mailing_address).to_html)
-%p
-  %b Country:
-  = @mission.country.name if @mission.country
-
-= link_to 'Edit', edit_mission_path(@mission)
-\|
-= link_to 'Back', missions_path
+  
+%table
+  %tr
+    %th Name
+    %th Unit
+    %th Status
+  - @mission.missionaries.each do |missionary|
+    %tr
+      %td= link_to missionary.full_name, missionary_path(missionary)
+      %td= link_to missionary.unit.name, unit_path(missionary.unit)
+      %td= missionary.state.humanize
+      
+= link_to 'Edit', edit_mission_path(@mission) 
