@@ -12,7 +12,8 @@ class Missionary < ActiveRecord::Base
   scope :call_received, lambda {where("state = 'call_received'").order("mtc_date").includes([:mission, :unit])}
   scope :serving,       lambda {where("state = 'serving'").order("anticipated_release_date").includes([:mission, :unit])}
   scope :returned,      lambda {where("state = 'returned'").order("anticipated_release_date DESC")}
-  scope :in_unit,       lambda {|unit_id, state| where(["missionaries.state = ? AND units.id = ?", state, unit_id]).joins(:unit)} 
+  scope :in_unit,       lambda {|unit_id| where(["units.id = ?", unit_id]).joins(:unit)} 
+  scope :in_mission,    lambda {|mission_id| where(["mission_id = ?", mission_id])}
 
   state_machine :state, :initial => :awaiting_call do 
     
