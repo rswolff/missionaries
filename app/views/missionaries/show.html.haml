@@ -1,27 +1,23 @@
 %p
-  %b Courtesy title:
-  = @missionary.courtesy_title
+  %b= @missionary.full_name_with_courtesy_title
 %p
-  %b First name:
-  = @missionary.first_name
-%p
-  %b Last name:
-  = @missionary.last_name
+  %b Unit:
+  = link_to @missionary.unit.name, unit_path(@missionary.unit)
 %p
   %b Email:
   = mail_to @missionary.email
 %p
   %b Mission:
-  = link_to @missionary.mission.name, mission_path(@missionary.mission.name) if @missionary.mission
+  = link_to @missionary.mission.name, mission_path(@missionary.mission) if @missionary.mission
+%p
+  %b Language:
+  = @missionary.language  
 %p
   %b State:
   = @missionary.state
 %p
   %b Mtc date:
   = @missionary.mtc_date
-%p
-  %b Language:
-  = @missionary.language
 
 = link_to 'Edit', edit_missionary_path(@missionary)
 \|

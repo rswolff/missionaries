@@ -1,5 +1,6 @@
+%h2= @mission.name
 %p
-  = sanitize(RedCloth.new(@mission.mailing_address).to_html)
+  = sanitize(RedCloth.new(@mission.address).to_html)
   
 %table
   %tr
@@ -11,5 +12,3 @@
       %td= link_to missionary.full_name, missionary_path(missionary)
       %td= link_to missionary.unit.name, unit_path(missionary.unit)
       %td= missionary.state.humanize
-      
-= link_to 'Edit', edit_mission_path(@mission) 

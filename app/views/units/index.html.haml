@@ -2,20 +2,17 @@
 
 %table
   %tr
-    %th Name
-    %th Awaiting Call
-    %th Call Received
-    %th Serving
-    %th Returned
+    %th{:class => 'left'} Name
+    %th{:class => 'center'} Awaiting Call
+    %th{:class => 'center'} Call Received
+    %th{:class => 'center'} Serving
+    %th{:class => 'center'} Returned
 
   - @units.each do |unit|
     %tr
-      %td
+      %td{:class => 'left'}
         = link_to unit.name, unit
-      %td= Missionary.count(:conditions => ["unit_id = ? AND state = ?", unit.id, 'awaiting_call'])
-      %td= Missionary.count(:conditions => ["unit_id = ? AND state = ?", unit.id, 'call_received'])
-      %td= Missionary.count(:conditions => ["unit_id = ? AND state = ?", unit.id, 'serving'])
-      %td= Missionary.count(:conditions => ["unit_id = ? AND state = ?", unit.id, 'returned'])            
-%br
-
-= link_to 'New unit', new_unit_path
+      %td{:class => 'center'}= Missionary.in_unit(unit.id).awaiting_call.count
+      %td{:class => 'center'}= Missionary.in_unit(unit.id).call_received.count
+      %td{:class => 'center'}= Missionary.in_unit(unit.id).serving.count
+      %td{:class => 'center'}= Missionary.in_unit(unit.id).returned.count

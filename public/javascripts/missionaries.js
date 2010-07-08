@@ -1,5 +1,4 @@
 function getMissionAddress(mission_id){
-	console.log("getting mission_id: " + mission_id)
 	$.getJSON("/missions/" + mission_id, function(data){
 		$("#mission_address").html(data.address);
 	});	
@@ -8,11 +7,9 @@ function getMissionAddress(mission_id){
 function toggleControls(){
 	//toggle form controls
 	if ($("select#missionary_mission_id").val() == " "){
-	  $(".toggle").attr("disabled", "disabled");
-	  console.log("controls enabled"); 	
+	  $(".toggle").attr("disabled", "disabled"); 	
 	} else {
 	  $(".toggle").removeAttr("disabled");
-	  console.log("controls enabled");
 	}
 }
 
@@ -37,8 +34,7 @@ function create_mission_id_select_options(responseText){
 function set_mission_id_select_and_close(responseText, statusText, xhr, $form){
 	options_text = create_mission_id_select_options(responseText);		
 	mission_select = $('select#missionary_mission_id');
-	mission_select.html(options_text);	
-	console.log("the mission_id.val() is: " + mission_select.val());
+	mission_select.html(options_text);
 	getMissionAddress(mission_select.val());	
 	toggleControls();
 }
