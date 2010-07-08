@@ -11,6 +11,8 @@
   gem "mysql"
   gem "RedCloth"
   gem "state_machine"
+  gem "rails-geocoder", :require => "geocoder"
+  
 
   # Use unicorn as the web server
   # gem 'unicorn'
