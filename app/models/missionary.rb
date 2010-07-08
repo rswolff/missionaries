@@ -12,7 +12,7 @@ class Missionary < ActiveRecord::Base
   scope :call_received, lambda {where("state = 'call_received'").order("mtc_date").includes([:mission, :unit])}
   scope :serving,       lambda {where("state = 'serving'").order("anticipated_release_date").includes([:mission, :unit])}
   scope :returned,      lambda {where("state = 'returned'").order("anticipated_release_date DESC")}
-  scope :in_unit,       lambda {|unit_id| where(["units.id = ?", unit_id]).joins(:unit)} 
+  scope :in_unit,       lambda {|unit_id| where(["units.id = ?", unit_id]).includes(:unit)} 
   scope :in_mission,    lambda {|mission_id| where(["mission_id = ?", mission_id])}
 
   state_machine :state, :initial => :awaiting_call do 
@@ -70,7 +70,7 @@ class Missionary < ActiveRecord::Base
   
   def self.languages
       missionaries = Arel::Table.new(:missionaries)
-      missionaries.where('language IS NOT NULL').group(missionaries[:language]).order(missionaries[:language]).project(missionaries[:language], missionaries[:id].count).order("count_id DESC").collect {|row| row.tuple}
+      missionaries.where('language <> ""').group(missionaries[:language]).order(missionaries[:language]).project(missionaries[:language], missionaries[:id].count).order("count_id DESC").collect {|row| row.tuple}
   end
 
 end
