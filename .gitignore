@@ -1,5 +1,6 @@
 .bundle
 config/database.yml
+config/deploy.rb
 log/*.log
 tmp/**/*
 .DS_Store

@@ -1,22 +1,50 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+set :application, "missionaries"
 
-set :scm, :subversion
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+role :web, "192.168.1.10"                          # Your HTTP server, Apache/etc
+role :app, "192.168.1.10"                          # This may be the same as your `Web` server
+role :db,  "192.168.1.10", :primary => true # This is where Rails migrations will run
 
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
+before "deploy:setup", :db
+after "deploy:update_code", "db:symlink"
 
-# If you are using Passenger mod_rails uncomment this:
-# if you're still using the script/reapear helper you will need
-# these http://github.com/rails/irs_process_scripts
+set :repository,  "git://github.com/rswolff/missionaries.git"
+default_run_options[:pty] = true
+set :scm, "git"
+set :user, "deploy"
+set :branch, "master"
+set :deploy_via, :remote_cache
+set :scm_verbose, true
+#set :git_enable_submodules, 1
+set :keep_releases, 3
 
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+ssh_options[:port] = 30000
+set :use_sudo, true
+
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
+
+namespace :db do
+  desc "Create database yaml in shared path"
+  task :default do
+    db_config = ERB.new <<-EOF
+production:
+  username: root
+  password: r00t
+  adapter: mysql
+  encoding: utf8
+  database: missionary_production
+EOF
+    run "mkdir -p #{shared_path}/config"
+    put db_config.result, "#{shared_path}/config/database.yml"
+  end
+    
+  desc "Make symlink for database yaml"
+  task :symlink do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  end
+end
