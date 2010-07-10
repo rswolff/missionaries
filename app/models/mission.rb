@@ -3,7 +3,6 @@ class Mission < ActiveRecord::Base
   
   geocoded_by :address, :latitude  => :lat, :longitude => :lng
   
-  
   has_many :missionaries
   belongs_to :country
   
@@ -11,6 +10,9 @@ class Mission < ActiveRecord::Base
   
   def mailing_address
     m = "*" + self.name + "*" + "\n" + read_attribute(:address)
-    RedCloth.new(m).to_html
-  end  
+    n = RedCloth.new(m).to_html
+    n.gsub!(/\r/," ")
+    n.gsub!(/\n/," ")
+  end
+  
 end

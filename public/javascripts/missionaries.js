@@ -1,6 +1,11 @@
 function getMissionAddress(mission_id){
-	$.getJSON("/missions/" + mission_id, function(data){
-		$("#mission_address").html(data.address);
+	
+	url_string = '/missions/' + mission_id;
+	
+	$.ajax({
+		type: 'get',
+		url: url_string, 
+		dataType: 'script'
 	});	
 }
 
@@ -65,7 +70,6 @@ $(function(){
 	$("select#missionary_mission_id").change(function(){
 		//get the mission address
 		getMissionAddress($(this).val());
-		console.log("toggling form controls.");
 		toggleControls();	
 	});
 });

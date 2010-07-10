@@ -1,0 +1,22 @@
+$(function(){
+	points = [
+	<%- @markers.each_with_index do |marker, i| %>
+		new google.maps.LatLng(<%= "#{marker[0]}, #{marker[1]}" %>)<%= "," unless i >= (@markers.size - 1) %>
+	<%- end %>
+	];
+	
+	function initialize() {
+		var latlng = new google.maps.LatLng(26.037042,3.867188)
+		var myOptions = {zoom: 3, center: latlng, mapTypeId: google.maps.MapTypeId.ROADMAP };
+		var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	
+		for(i=0; i<points.length;i++){
+			new google.maps.Marker({
+				position: points[i],
+				map: map
+			})
+		}
+	}
+	
+	initialize();
+});

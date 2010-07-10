@@ -1,25 +1,14 @@
-body {
-  font-family: 'helvetica';
-  font-size: 14px; }
+body { font-family: 'helvetica'; font-size: 14px; }
 
-th {
-  text-align: left; }
+th { text-align: left; }
 
-tr td {
-  vertical-align: top; }
-  tr td p {
-    margin: 0px; }
+tr td { vertical-align: top; }
+tr td p { margin: 0px; }
 
-table tr th, table tr td {
-  border-top: 1px solid #ccc;
-  height: 30px;
-  padding: 7px 3px; }
+table tr th, table tr td { border-top: 1px solid #ccc; height: 30px; padding: 7px 3px; }
 
-ul#nav {
-  margin: 20px 0px;
-  padding: 0px; }
+ul#nav { margin: 20px 0px; padding: 0px; }
 
-ul#nav li {
-  list-style-type: none;
-  display: inline;
-  padding-right: 25px; }
+ul#nav li { list-style-type: none; display: inline; padding-right: 25px; }
+
+#map_canvas { height: 500px; width: 960px; }

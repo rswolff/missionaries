@@ -1,12 +1,13 @@
 Missionaries::Application.routes.draw do |map|
   resources :countries
-
-  match 'missionary/languages' => 'missionaries#languages'
-  
   resources :people
+  
   resources :units do
     resources :missionaries
   end
+
+  match 'missionaries/map(.:format)' => 'missionaries#map'
+  match 'missionary/languages' => 'missionaries#languages'
   resources :missionaries do
     member do
       get :receive_call
@@ -18,10 +19,8 @@ Missionaries::Application.routes.draw do |map|
       get :returned
     end
   end
-  
+
   resources :missions
-  
-  get "pages/home"
   
   root :to => 'missionaries#index'
 
