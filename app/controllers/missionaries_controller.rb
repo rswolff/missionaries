@@ -42,7 +42,7 @@ class MissionariesController < ApplicationController
   # PUT /missionaries/1
   # PUT /missionaries/1.xml
   def update
-    @missionary = Missionary.find(params[:id])
+    respond_with(@missionary = Missionary.find(params[:id]))
   end
 
   # DELETE /missionaries/1
