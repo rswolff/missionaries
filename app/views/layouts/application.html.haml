@@ -12,11 +12,6 @@
     = yield :stylesheets
 
     = javascript_include_tag :defaults
-    = javascript_include_tag params[:controller]
-    = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false"
-    = javascript_include_tag '/missionaries/map.js'
-    = javascript_include_tag 'colorbox/colorbox/jquery.colorbox-min.js'
-    = javascript_include_tag 'jquery.form.js'
     = yield :javascripts
 
     = csrf_meta_tag

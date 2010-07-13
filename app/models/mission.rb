@@ -1,6 +1,9 @@
 require 'RedCloth'
 class Mission < ActiveRecord::Base
   
+  validates_presence_of :name, :address, :country_id
+  validates_presence_of :lat, :lng, :unless => Proc.new {new_record?}
+  
   geocoded_by :address, :latitude  => :lat, :longitude => :lng
   
   has_many :missionaries

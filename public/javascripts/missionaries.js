@@ -1,7 +1,5 @@
-function getMissionAddress(mission_id){
-	
+function getMissionAddress(mission_id){	
 	url_string = '/missions/' + mission_id;
-	
 	$.ajax({
 		type: 'get',
 		url: url_string, 
@@ -29,25 +27,29 @@ function parse_option_string(value, text, selected){
 }
 
 function create_mission_id_select_options(responseText){	
+	console.log("start function: create_mission_id_select_options");
 	options_text = "";
 	for(i = 0; i < responseText.length; i++){
 		options_text = options_text + parse_option_string(responseText[i]["id"], responseText[i]["name"], responseText[i]["selected"]);
 	}
 	return options_text;
+	console.log("end function: create_mission_id_select_options");
 }
 
 function set_mission_id_select_and_close(responseText, statusText, xhr, $form){
+	console.log("start function: set_mission_id_select_and_close");
 	options_text = create_mission_id_select_options(responseText);		
 	mission_select = $('select#missionary_mission_id');
 	mission_select.html(options_text);
 	getMissionAddress(mission_select.val());	
 	toggleControls();
+	console.log("end function: set_mission_id_select_and_close");
 }
 
 $(function(){
 	//ajaxSubmit form	
 	$("a#new_mission").colorbox({
-		'onComplete': function(){ 
+		'onComplete': function(){
 			$("form#new_mission").ajaxForm({
 				dataType: 'json', 
 				'success':  set_mission_id_select_and_close

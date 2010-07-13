@@ -1,5 +1,4 @@
 class MissionsController < ApplicationController
-  respond_to :html, :js
   # GET /missions
   # GET /missions.xml
   def index
@@ -10,8 +9,9 @@ class MissionsController < ApplicationController
   # GET /missions/1.xml
   def show
     @mission = Mission.find(params[:id])
-    respond_with(@mission) do |format|
+    respond_to do |format|
       format.js {@mission.to_json}
+      format.html {@mission}
     end
   end
 
@@ -19,6 +19,9 @@ class MissionsController < ApplicationController
   # GET /missions/new.xml
   def new
     @mission = Mission.new
+    respond_to do |format|
+      format.html # new.html.erb
+    end
   end
 
   # GET /missions/1/edit
@@ -30,8 +33,9 @@ class MissionsController < ApplicationController
   # POST /missions.xml
   def create
     @mission = Mission.new(params[:mission])
-    if @mission.save
-      respond_with(@mission) do |format|
+    
+    respond_to do |format|
+      if @mission.save
         format.js {  
           missions = Array.new
 
@@ -51,6 +55,9 @@ class MissionsController < ApplicationController
         
           render :json => missions.sort_by { |mission| mission[:name]}
         }
+        format.html { redirect_to(@mission, :notice => "The #{@mission.name} was sucesfully created.") }
+      else
+        format.html { render :action => "new" }
       end
     end
   end

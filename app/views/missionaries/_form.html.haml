@@ -1,3 +1,6 @@
+= content_for :javascripts do
+  = javascript_include_tag "missionaries.js"
+  
 = form_for @missionary do |f|
   -if @missionary.errors.any?
     #errorExplanation
