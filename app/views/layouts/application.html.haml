@@ -21,6 +21,6 @@
   .container
     = render :partial => "/shared/navbar"
     #notice
-      = if flash[:notice]
-        %p= flash[:notice]
+      - if flash[:notice]
+        %p{:class => "notice"}= flash[:notice]
     = yield

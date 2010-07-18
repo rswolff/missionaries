@@ -11,6 +11,6 @@ ul#nav { margin: 20px 0px; padding: 0px; }
 
 ul#nav li { list-style-type: none; display: inline; padding-right: 25px; }
 
-#notice { height: 50px; }
+#notice { height: 50px; margin-bottom: 20px; }
 
-#notice p { border: 1px solid #ccc; }
+#notice p { border: 1px solid #ccc; height: 50px; line-height: 50px; padding: 0px 20px; }

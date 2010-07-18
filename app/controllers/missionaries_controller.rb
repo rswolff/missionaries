@@ -49,14 +49,15 @@ class MissionariesController < ApplicationController
   # PUT /missionaries/1.xml
   def update
     @missionary = Missionary.find(params[:id])
+    
     respond_to do |format|
       if @missionary.update_attributes(params[:missionary])
-        format.html{ redirect_to(@missionary, :notice => 'Missionary was successfully updated.') }
+        format.html{ redirect_to(@missionary, :notice => "#{@missionary.full_name} was successfully updated.") }
       else
-        format.html{render :action => "edit"}
+        format.html{ render :action => "edit"}
       end
     end
-  end
+  end  
 
   # DELETE /missionaries/1
   # DELETE /missionaries/1.xml
