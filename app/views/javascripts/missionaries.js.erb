@@ -1,8 +1,16 @@
-function getMissionAddress(mission_id){	
-	url_string = '/missions/' + mission_id;
+function relativeRoot(){
+	var relative_root = "/";
+<%- unless ActionController::Base.relative_url_root.blank? %>
+ 	relative_root += <%= "#{ActionController::Base.relative_url_root}/" %>; 
+<%- end  %>	
+	return relative_root;
+}
+
+function getMissionAddress(mission_id){ 		
+	var url = relativeRoot() + "missions/" + mission_id;
 	$.ajax({
 		type: 'get',
-		url: url_string, 
+		url: url, 
 		dataType: 'script'
 	});	
 }

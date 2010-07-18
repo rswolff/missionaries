@@ -1,5 +1,5 @@
 = content_for :javascripts do
-  = javascript_include_tag "missionaries.js"
+  = javascript_include_tag javascript_missionaries_path
   
 = form_for @missionary do |f|
   -if @missionary.errors.any?

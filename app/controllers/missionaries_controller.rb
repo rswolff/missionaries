@@ -1,5 +1,4 @@
 class MissionariesController < ApplicationController
-  respond_to :html, :js
   
   # GET /missionaries
   # GET /missionaries.xml
@@ -30,19 +29,33 @@ class MissionariesController < ApplicationController
 
   # GET /missionaries/1/edit
   def edit
-    respond_with(@missionary = Missionary.find(params[:id]))
+    @missionary = Missionary.find(params[:id])
   end
 
   # POST /missionaries
   # POST /missionaries.xml
   def create
-    respond_with(@missionary = Missionary.new(params[:missionary]))
+    @missionary = Missionary.new(params[:missionary])
+    respond_to do |format|
+      if @missionary.save
+        format.html { redirect_to(@missionary, :notice => 'Missionary was successfully created.') }
+      else
+        format.html{render :action => "new"}
+      end
+    end
   end
 
   # PUT /missionaries/1
   # PUT /missionaries/1.xml
   def update
-    respond_with(@missionary = Missionary.find(params[:id]))
+    @missionary = Missionary.find(params[:id])
+    respond_to do |format|
+      if @missionary.update_attributes(params[:missionary])
+        format.html{ redirect_to(@missionary, :notice => 'Country was successfully updated.') }
+      else
+        format.html{render :action => "edit"}
+      end
+    end
   end
 
   # DELETE /missionaries/1
