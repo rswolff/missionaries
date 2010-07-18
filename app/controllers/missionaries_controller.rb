@@ -51,7 +51,7 @@ class MissionariesController < ApplicationController
     @missionary = Missionary.find(params[:id])
     respond_to do |format|
       if @missionary.update_attributes(params[:missionary])
-        format.html{ redirect_to(@missionary, :notice => 'Country was successfully updated.') }
+        format.html{ redirect_to(@missionary, :notice => 'Missionary was successfully updated.') }
       else
         format.html{render :action => "edit"}
       end
