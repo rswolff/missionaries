@@ -1,4 +1,10 @@
 Missionaries::Application.routes.draw do |map|
+  
+  match "javascripts/missionaries.js" => 'javascripts#missionaries', :as => "javascript_missionaries", :via => "get"
+  get "javascripts/missions"
+  get "javascripts/units"
+  get "javascripts/countries"
+
   resources :countries
   resources :people
   
