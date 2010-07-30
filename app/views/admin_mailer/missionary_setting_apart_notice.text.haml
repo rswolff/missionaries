@@ -1,0 +1,6 @@
+The following missionaries report to the MTC within the next two weeks and are not yet set apart:
+
+@missionaries.each do |missionary|
+  = missionary.full_name
+  = missionary.mtc_date
+  = missionary.mission.name
