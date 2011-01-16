@@ -1,7 +1,7 @@
 function relativeRoot(){
 	var relative_root = "/";
-<%- unless ActionController::Base.relative_url_root.blank? %>
- 	relative_root += <%= "#{ActionController::Base.relative_url_root}/" %>; 
+<%- unless config.relative_url_root.blank? %>
+ 	relative_root += <%= "#{config.relative_url_root}/" %>; 
 <%- end  %>	
 	return relative_root;
 }
