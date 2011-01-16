@@ -1,4 +1,4 @@
-namespace :admin
+namespace :admin do
   desc "find missionaries who are two weeks away from reporting to the MTC"
   task :notify_of_reporting_missionaries => :environment do
     @missionaries = Missionary.where("mtc_date BETWEEN '#{Date.today}' AND '#{2.weeks.from_now}' AND mtc_date IS NULL")
