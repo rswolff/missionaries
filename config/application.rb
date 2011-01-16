@@ -13,7 +13,7 @@ module Missionaries
   end
 
     Sass::Plugin.options[:style] = :compact
-  Sass::Plugin.options[:template_location] = 'app/stylesheets'
+    Sass::Plugin.options[:template_location] = 'app/stylesheets'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -1,36 +1,35 @@
 Missionaries::Application.routes.draw do |map|
-  
-  scope "/missionaries" do  
-    match "javascripts/missionaries.js" => 'javascripts#missionaries', :as => "javascript_missionaries", :via => "get"
-    get "javascripts/missions"
-    get "javascripts/units"
-    get "javascripts/countries"
+   
+  match "javascripts/missionaries.js" => 'javascripts#missionaries', :as => "javascript_missionaries", :via => "get"
+  get "javascripts/missions"
+  get "javascripts/units"
+  get "javascripts/countries"
 
-    resources :countries
-    resources :people
-  
-    resources :units do
-      resources :missionaries
-    end
+  resources :countries
+  resources :people
 
-    match 'missionaries/map(.:format)' => 'missionaries#map'
-    match 'missionary/languages' => 'missionaries#languages'
-    resources :missionaries do
-      member do
-        get :receive_call
-        get :enter_mission_call
-        get :set_apart
-        get :release
-      end
-      collection do
-        get :returned
-      end
-    end
-
-    resources :missions
-  
-    root :to => 'missionaries#index'
+  resources :units do
+    resources :missionaries
   end
+
+  match 'missionaries/map(.:format)' => 'missionaries#map'
+  match 'missionary/languages' => 'missionaries#languages'
+  resources :missionaries do
+    member do
+      get :receive_call
+      get :enter_mission_call
+      get :set_apart
+      get :release
+    end
+    collection do
+      get :returned
+    end
+  end
+
+  resources :missions
+
+  root :to => 'missionaries#index'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
