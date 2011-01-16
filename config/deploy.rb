@@ -1,8 +1,11 @@
 set :application, "missionaries"
 
-role :web, "tuscan.ca"                          # Your HTTP server, Apache/etc
-role :app, "tuscan.ca"                          # This may be the same as your `Web` server
-role :db,  "tuscan.ca", :primary => true # This is where Rails migrations will run
+#set :ip, "tuscan.ca"
+set :ip, "192.168.1.10"
+
+role :web, ip                          # Your HTTP server, Apache/etc
+role :app, ip                          # This may be the same as your `Web` server
+role :db,  ip, :primary => true        # This is where Rails migrations will run
 
 before "deploy:setup", :db
 after "deploy:update_code", "db:symlink"
