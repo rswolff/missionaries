@@ -14,6 +14,7 @@ module Missionaries
 
     Sass::Plugin.options[:style] = :compact
     Sass::Plugin.options[:template_location] = 'app/stylesheets'
+    config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
