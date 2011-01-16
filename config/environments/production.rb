@@ -44,5 +44,8 @@ Missionaries::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
   
-  config.action_controller.relative_url_root = "/missionaries"
+  #config.action_controller.relative_url_root = "/missionaries"
+  
+  config.relative_url_root = ENV['missionaries']
+  
 end
